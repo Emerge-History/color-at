@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Use Case
+    </title>
+    <script src="colorAt.js"></script>
+</head>
+<body style="cursor:none; margin:0;">
+    <img style="display:block; width:100%;" id="testImg" src="test2.jpg" />
+    <h1 style="display:block; position:fixed; left: 50px; top:50px; color:black; font-family:sans-serif; " id="testText">MENU</h1>
+    <script>
+        var testText = document.getElementById("testText");
+        var testImg = document.getElementById("testImg");
+        var c = colorAt();
+        c.trace(testImg);
+        c.add(testText);
+        testText.addEventListener("underlyingColorChange", function (r) {
+            r = r.detail;
+            var d = 255 - (r[0] + r[1] + r[2]) / 3;
+            //testText.style.color = "rgba(" + r[0] + "," + r[1] + "," + r[2] + "," + (r[3] / 255) + ")";
+            testText.style.color = "rgba(" + d + "," + d + "," + d + "," + 1 + ")";
+        });
+        //window.onload = function () {
+        //    c.update();
+        //};
+        window.onmousemove = function (e) {
+            testText.style.top = e.y - testText.clientHeight + "px";
+            testText.style.left = e.x - testText.clientWidth / 2 + "px";
+            var r = c.probe(testText, true);
+        };
+    </script>
+</body>
+</html>
